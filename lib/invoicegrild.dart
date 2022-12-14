@@ -31,48 +31,47 @@ class _InvoiceGridState extends State<InvoiceGrid> {
           elevation: 0,
         ),
         body: SafeArea(
-      child: Expanded(
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-          child: GridView.builder(
-            itemCount: 6,
-            padding: EdgeInsets.zero,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 3,
-              mainAxisSpacing: 2,
-              childAspectRatio: 1,
-            ),
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              return
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder:
-                            (context) =>
-                            listinvoice()
-                        ));
-                  },
-                  child: Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Color(0xFFF5F5F5),
-                    child: Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Text(
-                        'File ${index}',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          fontSize: 25,
-                        ),
+      child: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: GridView.builder(
+          shrinkWrap: true,
+          itemCount: 6,
+          padding: EdgeInsets.zero,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 3,
+            mainAxisSpacing: 2,
+            childAspectRatio: 1,
+          ),
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            return
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder:
+                          (context) =>
+                          listinvoice()
+                      ));
+                },
+                child: Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color(0xFFF5F5F5),
+                  child: Align(
+                    alignment: AlignmentDirectional(0, 0),
+                    child: Text(
+                      'File ${index}',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        fontSize: 25,
                       ),
                     ),
                   ),
-                );
+                ),
+              );
 
-            },
-          ),
+          },
         ),
       ),
     ));
