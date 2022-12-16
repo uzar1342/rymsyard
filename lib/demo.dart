@@ -138,7 +138,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         body: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
           children: [
-
             ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()},),
             ChecboxWidget(fun: ()=>{refress()}),
 
