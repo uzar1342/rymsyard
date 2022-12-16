@@ -74,8 +74,9 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
   submit() async {
     try{
       Dio dio = Dio();
-      var formData = di.FormData.fromMap({"images[]":
-          await di.MultipartFile.fromFile(details["file"][0].path, filename:"a.jpg"),
+      var formData = di.FormData.fromMap({"video":
+          await di.MultipartFile.fromFile(details["vidio"], filename:"a.mp4"
+              ""),
         "yard_id":
           "1"
     });
