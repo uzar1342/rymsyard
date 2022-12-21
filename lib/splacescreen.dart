@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'globle.dart';
 import 'intro.dart';
 import 'login.dart';
@@ -51,9 +50,7 @@ class _splacescreenState extends State<splacescreen>
       }
 
         }
-
       // TakePictureScreen(camera: firstCamera,)
-
     );
 
   }
@@ -62,7 +59,6 @@ class _splacescreenState extends State<splacescreen>
     timer();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +82,7 @@ class _splacescreenState extends State<splacescreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'asset/img.png',
-              width: 250,
-              height: 140,
+              'asset/fulllogo.png',
               fit: BoxFit.fill,
             ),
             Image.asset(

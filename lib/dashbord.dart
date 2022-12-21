@@ -10,7 +10,7 @@ class vehicalentry extends StatefulWidget {
   @override
   State<vehicalentry> createState() => _vehicalentryState();
 }
-
+Color colour=Color(0xffE31E24);
 class _vehicalentryState extends State<vehicalentry> {
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,7 @@ class _vehicalentryState extends State<vehicalentry> {
           {
             return GestureDetector(
               onTap: (){
+                singlepicfile=List.filled(20, "");
                 desFile="";
                 Navigator.push(context, MaterialPageRoute(builder: (c)=>tab( )));
               },
@@ -93,9 +94,9 @@ class _vehicalentryState extends State<vehicalentry> {
                                                 Container(
                                                   width: 90,
                                                   height: 40,
-                                                  decoration: const BoxDecoration(
-                                                    color: Color(0xFF711414),
-                                                    borderRadius: BorderRadius.only(
+                                                  decoration:  BoxDecoration(
+                                                    color: colour,
+                                                    borderRadius: const BorderRadius.only(
                                                       bottomLeft: Radius.circular(10),
                                                       bottomRight: Radius.circular(0),
                                                       topLeft: Radius.circular(0),
@@ -169,7 +170,7 @@ class _vehicalentryState extends State<vehicalentry> {
                                         width: double.infinity,
                                         height: 5,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF831111),
+                                          color: colour,
                                         ),
                                       ),
                                     ],

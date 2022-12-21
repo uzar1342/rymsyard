@@ -49,71 +49,71 @@ class _ProfWidgetState extends State<ProfWidget> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 0,
-                          color: FlutterFlowTheme.of(context).tertiaryColor,
-                          offset: Offset(0, 1),
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Material(
-                            color: Colors.transparent,
-                            elevation: 1,
-                            shape: const CircleBorder(),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.person,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Vipeen Jaiswal',
-                                  style: FlutterFlowTheme.of(context).title3,
-                                ),
-                                Padding(
-                                  padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                                  child: Text(
-                                    'Vipeen@Jaiswal.com',
-                                    style: FlutterFlowTheme.of(context).bodyText2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
+                //   child: Container(
+                //     width: double.infinity,
+                //     decoration: BoxDecoration(
+                //       color: FlutterFlowTheme.of(context).secondaryBackground,
+                //       boxShadow: [
+                //         BoxShadow(
+                //           blurRadius: 0,
+                //           color: FlutterFlowTheme.of(context).tertiaryColor,
+                //           offset: Offset(0, 1),
+                //         )
+                //       ],
+                //     ),
+                //     child: Padding(
+                //       padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                //       child: Row(
+                //         mainAxisSize: MainAxisSize.max,
+                //         children: [
+                //           Material(
+                //             color: Colors.transparent,
+                //             elevation: 1,
+                //             shape: const CircleBorder(),
+                //             child: Container(
+                //               width: 50,
+                //               height: 50,
+                //               decoration: BoxDecoration(
+                //                 color: FlutterFlowTheme.of(context)
+                //                     .secondaryBackground,
+                //                 shape: BoxShape.circle,
+                //               ),
+                //               child: const Icon(
+                //                 Icons.person,
+                //                 color: Colors.black,
+                //                 size: 24,
+                //               ),
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                //             child: Column(
+                //               mainAxisSize: MainAxisSize.max,
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               children: [
+                //                 Text(
+                //                   'Vipeen Jaiswal',
+                //                   style: FlutterFlowTheme.of(context).title3,
+                //                 ),
+                //                 Padding(
+                //                   padding:
+                //                   EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                //                   child: Text(
+                //                     'Vipeen@Jaiswal.com',
+                //                     style: FlutterFlowTheme.of(context).bodyText2,
+                //                   ),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 0),
                   child: Text(
@@ -125,11 +125,12 @@ class _ProfWidgetState extends State<ProfWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder:
-                              (context) =>
-                                  yardasset()
-                          ));
+
+
+                      Get.to(() =>  yardasset(),
+                          transition: Transition.rightToLeft);
+
+
                     },
                     child: Container(
                       width: double.infinity,
@@ -183,11 +184,9 @@ class _ProfWidgetState extends State<ProfWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder:
-                              (context) =>
-                                  InvoiceGrid()
-                          ));
+                      Get.to(() =>  InvoiceGrid(),
+                          transition: Transition.rightToLeft);
+
                     },
                     child: Container(
                       width: double.infinity,
@@ -210,7 +209,7 @@ class _ProfWidgetState extends State<ProfWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Icon(
-                              Icons.directions_car,
+                              Icons.receipt,
                               color: FlutterFlowTheme.of(context).secondaryText,
                               size: 24,
                             ),

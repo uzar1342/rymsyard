@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 child: Container(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Image And Vidio",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
+                    const Text("Image And Video",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
                     iAndv!=""?Icon(Icons.check,color: Colors.blue,):Container()
                   ],
                 ),),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dashbord.dart';
 import 'demo.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'main.dart';
@@ -92,9 +93,9 @@ class _vehicalexitState extends State<vehicalexit> {
                                                 Container(
                                                   width: 90,
                                                   height: 40,
-                                                  decoration: const BoxDecoration(
-                                                    color: Color(0xFF711414),
-                                                    borderRadius: BorderRadius.only(
+                                                  decoration:  BoxDecoration(
+                                                    color: colour,
+                                                    borderRadius: const BorderRadius.only(
                                                       bottomLeft: Radius.circular(10),
                                                       bottomRight: Radius.circular(0),
                                                       topLeft: Radius.circular(0),
@@ -168,7 +169,7 @@ class _vehicalexitState extends State<vehicalexit> {
                                         width: double.infinity,
                                         height: 5,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF831111),
+                                          color: colour,
                                         ),
                                       ),
                                     ],

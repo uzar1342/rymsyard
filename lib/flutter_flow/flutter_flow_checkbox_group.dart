@@ -69,6 +69,7 @@ class _FlutterFlowCheckboxGroupState extends State<FlutterFlowCheckboxGroup> {
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           widget.checkboxBorderRadius ?? BorderRadius.zero,
+
                     ),
                   ),
                   Padding(

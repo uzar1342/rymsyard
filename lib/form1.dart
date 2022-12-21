@@ -1,25 +1,19 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:rymsyard/firstpage.dart';
 import 'package:rymsyard/searchedittext.dart';
-import 'package:rymsyard/test.dart';
 import 'package:rymsyard/urls.dart';
 
 import '../flutter_flow/flutter_flow_drop_down.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:dio/dio.dart'as di;
 import 'demo.dart';
 import 'flutter_flow/flutter_flow_radio_button.dart';
 import 'flutter_flow/flutter_flow_widgets.dart';
-import 'main.dart';
 
 class ChecboxWidget extends StatefulWidget {
   const ChecboxWidget({Key? key, required Set<void> Function() fun}) : super(key: key);
@@ -42,7 +36,9 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
   TextEditingController? Registered_Date;
   String? Repo_Agency_Name;
   String? STATUS;
-  String? Make_and_Model;
+  String? Make;
+  String? Model;
+
   String? RC_Book_Availability;
   String? VEHICLE_INSURANCE;
   String? PUC_Certificate;
@@ -82,11 +78,8 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
     });
       formData.files.add(MapEntry("images[]", await di.MultipartFile.fromFile(details["file"][0].path, filename:"a.jpg")));
        formData.files.add(MapEntry("images[]", await di.MultipartFile.fromFile(details["file"][1].path, filename:"b.jpg")));
-      print(formData.files);
        var response =
        await dio.post(addvehicledata, data: formData);
-       print(response.statusCode);
-       print(response.data);
 
       // if (response.statusCode == 200) {
       //   var jason=jsonDecode(response.data);
@@ -113,7 +106,6 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
     }
     catch(e)
     {
-      print(e);
       const snackBar = SnackBar(
         content: Text('Login Fail'),
         backgroundColor: (Colors.red),
@@ -168,12 +160,10 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
         lastDate: DateTime(2100));
 
     if (pickedDate != null) {
-      print(
-          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+      //pickedDate output format => 2021-03-10 00:00:00.000
       String formattedDate =
       DateFormat('dd-MM-yyyy').format(pickedDate);
-      print(
-          formattedDate); //formatted date output using intl package =>  2021-03-16
+      //formatted date output using intl package =>  2021-03-16
       setState(() {
         incalander1.text =
             formattedDate; //set output date to TextField value.
@@ -199,7 +189,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'RC Book Availability',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -214,10 +204,10 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
 
 
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 500,
                     ),
                     decoration: BoxDecoration(
@@ -235,11 +225,11 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                         fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
-                      textPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       buttonPosition: RadioButtonPosition.left,
                       direction: Axis.horizontal,
                       radioButtonColor: Colors.blue,
-                      inactiveRadioButtonColor: Color(0x8A000000),
+                      inactiveRadioButtonColor: const Color(0x8A000000),
                       toggleable: false,
                       horizontalAlignment: WrapAlignment.start,
                       verticalAlignment: WrapCrossAlignment.start,
@@ -250,7 +240,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'VEHICLE INSURANCE',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -262,10 +252,10 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 500,
                     ),
                     decoration: BoxDecoration(
@@ -283,11 +273,11 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                         fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
-                      textPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       buttonPosition: RadioButtonPosition.left,
                       direction: Axis.horizontal,
                       radioButtonColor: Colors.blue,
-                      inactiveRadioButtonColor: Color(0x8A000000),
+                      inactiveRadioButtonColor: const Color(0x8A000000),
                       toggleable: false,
                       horizontalAlignment: WrapAlignment.start,
                       verticalAlignment: WrapCrossAlignment.start,
@@ -298,7 +288,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'INSURANCE VALIDITY',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -314,10 +304,10 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                     date(INSURANCE_VALIDITY!);
                   },
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -334,42 +324,42 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter date',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
@@ -384,7 +374,7 @@ enabled: false,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'PUC Certificate',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -396,10 +386,10 @@ enabled: false,
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 500,
                     ),
                     decoration: BoxDecoration(
@@ -417,11 +407,11 @@ enabled: false,
                         fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
-                      textPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       buttonPosition: RadioButtonPosition.left,
                       direction: Axis.horizontal,
                       radioButtonColor: Colors.blue,
-                      inactiveRadioButtonColor: Color(0x8A000000),
+                      inactiveRadioButtonColor: const Color(0x8A000000),
                       toggleable: false,
                       horizontalAlignment: WrapAlignment.start,
                       verticalAlignment: WrapCrossAlignment.start,
@@ -432,7 +422,7 @@ enabled: false,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'Fitness Certificate',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -444,10 +434,10 @@ enabled: false,
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 500,
                     ),
                     decoration: BoxDecoration(
@@ -465,11 +455,11 @@ enabled: false,
                         fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
-                      textPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       buttonPosition: RadioButtonPosition.left,
                       direction: Axis.horizontal,
                       radioButtonColor: Colors.blue,
-                      inactiveRadioButtonColor: Color(0x8A000000),
+                      inactiveRadioButtonColor: const Color(0x8A000000),
                       toggleable: false,
                       horizontalAlignment: WrapAlignment.start,
                       verticalAlignment: WrapCrossAlignment.start,
@@ -480,7 +470,7 @@ enabled: false,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'TAX Book',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -492,10 +482,10 @@ enabled: false,
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 500,
                     ),
                     decoration: BoxDecoration(
@@ -513,11 +503,11 @@ enabled: false,
                         fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
-                      textPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       buttonPosition: RadioButtonPosition.left,
                       direction: Axis.horizontal,
                       radioButtonColor: Colors.blue,
-                      inactiveRadioButtonColor: Color(0x8A000000),
+                      inactiveRadioButtonColor: const Color(0x8A000000),
                       toggleable: false,
                       horizontalAlignment: WrapAlignment.start,
                       verticalAlignment: WrapCrossAlignment.start,
@@ -528,7 +518,7 @@ enabled: false,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'PERMIT',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -540,10 +530,10 @@ enabled: false,
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 500,
                     ),
                     decoration: BoxDecoration(
@@ -561,11 +551,11 @@ enabled: false,
                         fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
-                      textPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       buttonPosition: RadioButtonPosition.left,
                       direction: Axis.horizontal,
                       radioButtonColor: Colors.blue,
-                      inactiveRadioButtonColor: Color(0x8A000000),
+                      inactiveRadioButtonColor: const Color(0x8A000000),
                       toggleable: false,
                       horizontalAlignment: WrapAlignment.start,
                       verticalAlignment: WrapCrossAlignment.start,
@@ -576,7 +566,7 @@ enabled: false,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
                         'Registered Date',
                         style: FlutterFlowTheme.of(context).title3.override(
@@ -592,10 +582,10 @@ enabled: false,
                     date(Registered_Date!);
                   },
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -612,46 +602,47 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter date',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -667,7 +658,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Registration No',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -679,10 +670,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -696,49 +687,51 @@ enabled: false,
                         controller: Registration_No,
 
                         obscureText: false,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           hintText: 'Enter Registration No',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -748,7 +741,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Contract No',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -760,10 +753,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -775,51 +768,51 @@ enabled: false,
                       ),
                       child: TextFormField(
                         controller: Contract_No,
-
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Contract No',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -829,9 +822,9 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
-                          'Make and Model',
+                          'Make',
                           style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
@@ -841,10 +834,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -856,7 +849,7 @@ enabled: false,
                       ),
                       child: FlutterFlowDropDown(
                         options: ['Option 1', '2', '3'],
-                        onChanged: (val) => setState(() => Make_and_Model = val),
+                        onChanged: (val) => setState(() => Make = val),
                         width: 180,
                         height: 50,
                         textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -869,16 +862,65 @@ enabled: false,
                         borderColor: Colors.transparent,
                         borderWidth: 0,
                         borderRadius: 0,
-                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                         hidesUnderline: true,
                       ),
                     ),
                   ),
+                 Make!=null? Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Text(
+                          'Model',
+                          style: FlutterFlowTheme.of(context).title3.override(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ):Container(),
+                  Make!=null? Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    child: Container(
+                      width: double.infinity,
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                        ),
+                      ),
+                      child: FlutterFlowDropDown(
+                        options: ['Option 1', '2', '3'],
+                        onChanged: (val) => setState(() => Model = val),
+                        width: 180,
+                        height: 50,
+                        textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.black,
+                        ),
+                        hintText: 'Please select...',
+                        fillColor: Colors.white,
+                        elevation: 2,
+                        borderColor: Colors.transparent,
+                        borderWidth: 0,
+                        borderRadius: 0,
+                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                        hidesUnderline: true,
+                      ),
+                    ),
+                  ):Container(),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Chasis Number',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -890,10 +932,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -910,46 +952,47 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Chasis Number',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -959,7 +1002,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Engine No',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -971,10 +1014,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -991,46 +1034,47 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Engine No',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -1040,7 +1084,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Customer Name',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1052,10 +1096,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1072,46 +1116,47 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Customer Name',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -1121,7 +1166,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Repo Agency Name',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1133,10 +1178,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1161,7 +1206,7 @@ enabled: false,
                         borderColor: Colors.transparent,
                         borderWidth: 0,
                         borderRadius: 0,
-                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                         hidesUnderline: true,
                       ),
                     ),
@@ -1170,7 +1215,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Mileage at  repo',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1182,10 +1227,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1197,51 +1242,51 @@ enabled: false,
                       ),
                       child: TextFormField(
                         controller: Mileageatrepo,
-
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Mileage at  repo',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -1251,7 +1296,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Mileage at  yard',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1263,10 +1308,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1283,46 +1328,47 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Mileage at  repo',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -1332,7 +1378,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Fuel (inches)',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1344,10 +1390,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1364,22 +1410,22 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Fuel (inches)',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
@@ -1394,16 +1440,17 @@ enabled: false,
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -1414,7 +1461,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'STATUS',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1426,10 +1473,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1454,7 +1501,7 @@ enabled: false,
                         borderColor: Colors.transparent,
                         borderWidth: 0,
                         borderRadius: 0,
-                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                         hidesUnderline: true,
                       ),
                     ),
@@ -1463,7 +1510,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Source',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1475,10 +1522,10 @@ enabled: false,
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1503,7 +1550,7 @@ enabled: false,
                         borderColor: Colors.transparent,
                         borderWidth: 0,
                         borderRadius: 0,
-                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                         hidesUnderline: true,
                       ),
                     ),
@@ -1512,7 +1559,7 @@ enabled: false,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
                           'Section yard',
                           style: FlutterFlowTheme.of(context).title3.override(
@@ -1530,10 +1577,10 @@ enabled: false,
                     showMyDialog(Section_yard);
                   },
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),
                       decoration: BoxDecoration(
@@ -1550,22 +1597,22 @@ enabled: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Fuel (inches)',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
@@ -1580,16 +1627,17 @@ enabled: false,
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -1601,7 +1649,7 @@ enabled: false,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -1615,15 +1663,11 @@ enabled: false,
                           child: FFButtonWidget(
                             onPressed: () {
                               submit();
-                              print("object");
                               try
                               {
-
-
-
                                 details['Repo_Agency_Name'] = Repo_Agency_Name!;
                                 details['STATUS'] = STATUS!;
-                                details['Make_and_Model'] = Make_and_Model!;
+                                details['Make_and_Model'] = Make!;
                                 details['RC_Book_Availability'] = RC_Book_Availability!;
                                 details['VEHICLE_INSURANCE'] = VEHICLE_INSURANCE!;
                                 details['PUC_Certificate'] = PUC_Certificate!;
@@ -1685,7 +1729,7 @@ enabled: false,
                                 fontFamily: 'Poppins',
                                 color: Colors.white,
                               ),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
                               ),

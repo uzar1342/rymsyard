@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'flutter_flow/flutter_flow_icon_button.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'invoicelist.dart';
 
@@ -17,19 +18,30 @@ class _InvoiceGridState extends State<InvoiceGrid> {
     return Scaffold(
 
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'File/Invoice',
-            style: FlutterFlowTheme.of(context).subtitle2,
-          ),
-          surfaceTintColor: Colors.black,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.black
-          ),
-          elevation: 0,
-        ),
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+    automaticallyImplyLeading: false,
+    leading: FlutterFlowIconButton(
+    borderColor: Colors.transparent,
+    borderRadius: 30,
+    borderWidth: 1,
+    buttonSize: 60,
+    icon: Icon(
+    Icons.arrow_back_rounded,
+    color: FlutterFlowTheme.of(context).primaryText,
+    size: 30,
+    ),
+    onPressed: () {
+    Navigator.pop(context);
+    },
+    ),
+    title: Text(
+    'File/Invoice',
+    style: FlutterFlowTheme.of(context).subtitle2,
+    ),
+    actions: [],
+    centerTitle: true,
+    elevation: 0,
+    ),
         body: SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(18.0),

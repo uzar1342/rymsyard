@@ -7,15 +7,18 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_watermark/image_watermark.dart';
 import 'package:path/path.dart' as path;
 import 'package:camera/camera.dart';
 import 'package:rymsyard/search%20vehical.dart';
+import 'package:rymsyard/singlepic.dart';
 import 'package:rymsyard/splacescreen.dart';
 import 'package:rymsyard/vehicalexit.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:device_info/device_info.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as ui;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -198,7 +201,7 @@ class vidioupload extends StatelessWidget {
     );
   }
 }
-
+List singlepicfile=List.filled(20, "");
 class ImageAndVidio extends StatefulWidget {
    ImageAndVidio( {super.key, required this.title, required this.fun,required this.file});
   var file;
@@ -486,30 +489,71 @@ getinfo()
     _duration = duration.inSeconds;
     print("upload time"+duration.toString());
   }
-
-
-
   final ImagePicker _picker = ImagePicker();
   picimg(int index, String s)
   async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
     if(image!=null) {
-      s=="S"?singlepicfile[index]=image:widget.file[index] = image;
-      saveimg(image, index);
+      File file2 = File(image.path);
+      var t = await file2.readAsBytes();
+      var imgBytes = Uint8List.fromList(t);
+      var watermarkedImg = await ImageWatermark .addTextWatermark(
+          watermarkText            //image bytes
+              :'watermarkText',      //watermark text
+          color: Colors.black, //default : Colors.white
+          dstX: 100,         // default : imageWidth/4
+          dstY: 100 ,
+          imgBytes: imgBytes);        // default : imageWidth/2
+      final directory = await getExternalStorageDirectory();
+      var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/RYMSValuer/${widget.title}').create(recursive: true);
+      print(directory.path);
+      File file1 = await File('${directory1.path}/${index}.png').create();
+      file1.writeAsBytesSync(watermarkedImg);
+      s=="S"?singlepicfile[index]=file1:widget.file[index] = file1;
+    //  saveimg(image, index);
     }
     setState(() {
     });
   }
-  singpicimg(int index)
+  singpicimg(index)
   async {
-
     final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
     if(image!=null) {
-      singlepicfile[index] = image;
-      saveimg(image, index);
+      File file2 = File(image.path);
+      var t = await file2.readAsBytes();
+      var imgBytes = Uint8List.fromList(t);
+      var watermarkedImg = await ImageWatermark.addTextWatermark(
+          watermarkText //image bytes
+              : 'watermarkText',
+          //watermark text
+          color: Colors.black,
+          //default : Colors.white
+          dstX: 100,
+          // default : imageWidth/4
+          dstY: 100,
+          imgBytes: imgBytes); // default : imageWidth/2
+      final directory = await getExternalStorageDirectory();
+      var directory1 = await Directory(
+          '${directory!.parent.parent.parent.parent.path}/RYMSValuer/${widget
+              .title}').create(recursive: true);
+      print(directory.path);
+      File file1 = await File('${directory1.path}/${index}.png').create();
+      file1.writeAsBytesSync(watermarkedImg);
+      singlepicfile[index] = file1;
+      setState(() {
+
+      });
     }
-    setState(() {
-    });
+    // Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) =>
+    //             Singlepic(
+    //               title: list,
+    //               id: index,
+    //             )));
+
+
   }
   permition()
   async {
@@ -533,7 +577,7 @@ getinfo()
     super.initState();
   }
 var selectedValue;
-List singlepicfile=List.filled(20, "");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -596,7 +640,7 @@ List singlepicfile=List.filled(20, "");
                                         padding:
                                         EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                                         child: Text(
-                                          'Select Vidio',
+                                          'Select Video',
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context).bodyText1,
                                         ),
@@ -649,7 +693,7 @@ List singlepicfile=List.filled(20, "");
                                     Align(
                                       alignment: AlignmentDirectional(0, 0),
                                       child: Text(
-                                        'Setect mulli Image',
+                                        'Select multiple Image',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context).bodyText1,
                                       ),
@@ -666,8 +710,6 @@ List singlepicfile=List.filled(20, "");
                   ),
                 ],
               ),
-
-
               // Row(
               //   mainAxisSize: MainAxisSize.max,
               //   children: [
@@ -1143,10 +1185,7 @@ List singlepicfile=List.filled(20, "");
   saveimg(file,int i)
   async {
     try {
-      final directory = await getExternalStorageDirectory();
-      var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/RYMSValuer/${widget.title}').create(recursive: true);
-      print(directory.path);
-      File(file.path).copy("${directory1!.path}/$i.jpg");
+
     } catch (e) {
       return null;
     }

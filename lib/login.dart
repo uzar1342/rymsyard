@@ -136,11 +136,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'asset/login-concept.png',
-                      width: MediaQuery.of(context).size.width*0.8,
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      fit: BoxFit.fill,
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Image.asset(
+                        'asset/login-concept.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -197,6 +198,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: TextFormField(
                             controller: emailAddressController,
                             obscureText: false,
+                            maxLength: 10,
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: 'Enter Mobile Number',
                               labelStyle: FlutterFlowTheme.of(context)

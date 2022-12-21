@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_watermark/image_watermark.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,7 +17,7 @@ import 'package:flutter/material.dart'as mi;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:image/image.dart' as ui;
 import 'demo.dart';
 import 'flutter_flow_theme.dart';
 import 'main.dart';
@@ -33,7 +35,7 @@ class TakePictureScreen extends StatefulWidget {
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
-
+int i=0;
 class TakePictureScreenState extends State<TakePictureScreen> {
   late Future<void> _initializeControllerFuture;
   bool net = false;
@@ -69,6 +71,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   void initState() {
     super.initState();
+    permition();
+    print(file);
     _initializeControllerFuture= _getAvailableCameras();
   }
 
@@ -92,8 +96,26 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       print(e);
     }
   }
+  getinfo()
+  async {
+    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    final androidInfo = await deviceInfoPlugin.androidInfo;
+    return androidInfo.version.sdkInt;
+  }
+  permition()
+  async {
+    var status = await Permission.storage.status;
+    var list = List<String>.generate(20, (i) => (i + 1).toString());
+    if (!status.isGranted) {
+      await Permission.storage.request();
+      await Permission.accessMediaLocation.request();
+      if(getinfo() >= 30) {
+        await Permission.manageExternalStorage.request();
+      }
+      return;
+    }
 
-
+  }
 
   @override
   void dispose() {
@@ -120,6 +142,28 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     else {
       print('Asked camera not available');
     }
+  }
+  
+  addimg(file3)
+  async {
+    File file2 = File(file3.path);
+    var t = await file2.readAsBytes();
+    ui.Image? originalImage = ui.decodeImage(file2.readAsBytesSync());
+   var imgBytes = Uint8List.fromList(t);
+    var watermarkedImg = await ImageWatermark.addTextWatermark(
+        watermarkText            //image bytes
+        :'watermarkText',      //watermark text
+        color: Colors.black, //default : Colors.white
+        dstX: (originalImage!.width*0.3).round(),         // default : imageWidth/4
+        dstY: (originalImage.height*0.9).round() ,
+        imgBytes: imgBytes);        // default : imageWidth/2
+
+    final directory = await getExternalStorageDirectory();
+    var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/RYMSValuer/dir').create(recursive: true);
+    File file1 = await File('${directory1.path}/${i}.png').create();
+    file1.writeAsBytesSync(watermarkedImg);
+    file.add(file1);
+    i++;
   }
   @override
   Widget build(BuildContext context) {
@@ -197,7 +241,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                       return const Center(child: CircularProgressIndicator());
                     }
                   },
-                ): Image.file(File(image!.path)):Image.file(File(file[file.length-1]!.path)),
+                ): Image.file(File(image!.path)):Image.file( File(file[file.length-1].path)),
               ),
               SizedBox(height: 5),
 
@@ -276,7 +320,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         {
                           _toggleCameraLens();
                         }
-                        file.add(image);
+                       // file.add(image);
+                       addimg(image);
                       }
                       else
                       {
@@ -313,7 +358,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
                     onPressed: () async {
 
-
+                      i=0;
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder:
                               (context) =>

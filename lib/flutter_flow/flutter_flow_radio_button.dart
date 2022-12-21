@@ -161,7 +161,7 @@ class RadioButton<T> extends StatelessWidget {
     return InkWell(
       onTap: () => onChanged!(value),
       child: isSelected?Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+          padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
         child: Material(
           color: Colors.transparent,
           elevation: 1,
@@ -184,15 +184,14 @@ class RadioButton<T> extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 value.toString(),
-
-
+                style: TextStyle(fontSize: 18),
               ),
             ),
           ),
         ),
       ):
       Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+        padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
         child: Material(
           color: Colors.transparent,
           elevation: 1,
@@ -212,9 +211,10 @@ class RadioButton<T> extends StatelessWidget {
 
 
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Text(
                 value.toString(),
+                style: TextStyle(fontSize: 18),
 
 
               ),

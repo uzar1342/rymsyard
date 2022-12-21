@@ -38,7 +38,7 @@ class _IntroWidgetState extends State<IntroWidget> {
                 children: [
                   Container(
                     constraints: BoxConstraints(
-                      maxHeight: 500,
+                      maxHeight: 550,
                       maxWidth: MediaQuery.of(context).size.width
                     ),
                     height: MediaQuery.of(context).size.height * 0.7,
@@ -67,7 +67,7 @@ class _IntroWidgetState extends State<IntroWidget> {
                                           padding: EdgeInsetsDirectional.fromSTEB(
                                               0, 0, 0, 20),
                                           child: Image.asset(
-                                            'asset/carsell.png',
+                                            'asset/fulllogo.png',
                                             width: 350,
                                             height: 300,
                                             fit: BoxFit.fitWidth,
@@ -120,8 +120,8 @@ class _IntroWidgetState extends State<IntroWidget> {
                                           padding: EdgeInsetsDirectional.fromSTEB(
                                               0, 0, 0, 20),
                                           child: Image.asset(
-                                            'asset/carsell.png',
-                                            width: 300,
+                                            'asset/fulllogo.png',
+                                            width: 350,
                                             height: 300,
                                             fit: BoxFit.fitWidth,
                                           ),
@@ -163,7 +163,7 @@ class _IntroWidgetState extends State<IntroWidget> {
                               ),
                               Container(
                                 width: 100,
-                                height: 100,
+                                height: 150,
                                 decoration: BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -177,9 +177,9 @@ class _IntroWidgetState extends State<IntroWidget> {
                                           padding: EdgeInsetsDirectional.fromSTEB(
                                               0, 30, 0, 30),
                                           child: Image.asset(
-                                            'asset/carsell.png',
-                                            width: 300,
-                                            height: 250,
+                                            'asset/fulllogo.png',
+                                            width: 350,
+                                            height: 300,
                                             fit: BoxFit.fitWidth,
                                           ),
                                         ),
@@ -198,18 +198,22 @@ class _IntroWidgetState extends State<IntroWidget> {
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Keep track of all your purchases that you have made, want to trade books in? Go ahead and list them for exchange.',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 20, 8),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'Keep track of all your purchases that you have made, want to trade books in? Go ahead and list them for exchange.',
+                                              textAlign: TextAlign.center,
+                                              style: FlutterFlowTheme.of(context)
+                                                  .subtitle2,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
