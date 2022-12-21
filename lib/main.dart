@@ -5,6 +5,7 @@ import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:path/path.dart' as ba;
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_watermark/image_watermark.dart';
@@ -48,6 +49,7 @@ class dasbod extends StatefulWidget {
   @override
   State<dasbod> createState() => _dasbodState();
 }
+var ch;
 int _selectedIndex = 0;
 class _dasbodState extends State<dasbod> {
   bool net = true;
@@ -72,6 +74,7 @@ class _dasbodState extends State<dasbod> {
       }
     });
   }
+
   @override
   void initState() {
     checkinternet();
@@ -203,7 +206,7 @@ class vidioupload extends StatelessWidget {
 }
 List singlepicfile=List.filled(20, "");
 class ImageAndVidio extends StatefulWidget {
-   ImageAndVidio( {super.key, required this.title, required this.fun,required this.file});
+   ImageAndVidio(  {super.key, required this.title, required this.fun,required this.file});
   var file;
    Function fun;
   final String title;
@@ -268,7 +271,7 @@ var list=[
   Future<void> _pickVideo() async {
 
 
-    var file;
+    File file;
 
     final picker = ImagePicker();
     var pickedFile = await  picker.pickVideo(source: ImageSource.camera);
@@ -354,12 +357,6 @@ getinfo()
       }
 
   }
-
-
-
-
-
-
   // void uploadFileToServer(File imagePath) async {
   //
   //   var dio = Dio();
@@ -507,7 +504,7 @@ getinfo()
       final directory = await getExternalStorageDirectory();
       var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/RYMSValuer/${widget.title}').create(recursive: true);
       print(directory.path);
-      File file1 = await File('${directory1.path}/${index}.png').create();
+      File file1 = await File('${directory1.path}/$index.png').create();
       file1.writeAsBytesSync(watermarkedImg);
       s=="S"?singlepicfile[index]=file1:widget.file[index] = file1;
     //  saveimg(image, index);
@@ -517,44 +514,61 @@ getinfo()
   }
   singpicimg(index)
   async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
-    if(image!=null) {
-      File file2 = File(image.path);
-      var t = await file2.readAsBytes();
-      var imgBytes = Uint8List.fromList(t);
-      var watermarkedImg = await ImageWatermark.addTextWatermark(
-          watermarkText //image bytes
-              : 'watermarkText',
-          //watermark text
-          color: Colors.black,
-          //default : Colors.white
-          dstX: 100,
-          // default : imageWidth/4
-          dstY: 100,
-          imgBytes: imgBytes); // default : imageWidth/2
-      final directory = await getExternalStorageDirectory();
-      var directory1 = await Directory(
-          '${directory!.parent.parent.parent.parent.path}/RYMSValuer/${widget
-              .title}').create(recursive: true);
-      print(directory.path);
-      File file1 = await File('${directory1.path}/${index}.png').create();
-      file1.writeAsBytesSync(watermarkedImg);
-      singlepicfile[index] = file1;
-      setState(() {
-
-      });
-    }
-    // Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) =>
-    //             Singlepic(
-    //               title: list,
-    //               id: index,
-    //             )));
+    // final XFile? image = await _picker.pickImage(source: ImageSource.camera,imageQuality: 50);
+    // if(image!=null) {
+    //   File file2 = File(image.path);
+    //   var t = await file2.readAsBytes();
+    //   var imgBytes = Uint8List.fromList(t);
+    //   var watermarkedImg = await ImageWatermark.addTextWatermark(
+    //       watermarkText //image bytes
+    //           : 'watermarkText',
+    //       //watermark text
+    //       color: Colors.black,
+    //       //default : Colors.white
+    //       dstX: 100,
+    //       // default : imageWidth/4
+    //       dstY: 100,
+    //       imgBytes: imgBytes); // default : imageWidth/2
+    //   final directory = await getExternalStorageDirectory();
+    //   var directory1 = await Directory(
+    //       '${directory!.parent.parent.parent.parent.path}/RYMSValuer/${widget
+    //           .title}').create(recursive: true);
+    //   print(directory.path);
+    //   File file1 = await File('${directory1.path}/${index}.png').create();
+    //   file1.writeAsBytesSync(watermarkedImg);
+    //   singlepicfile[index] = file1;
+    //   setState(() {
+    //
+    //   });
+    // }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                Singlepic(
+                  title: list,
+                  id: index,
+                )));
 
 
   }
+var  file1;
+getlist() async {
+  var i=0;
+  var directory1 = await Directory('/storage/emulated/0/RYMSValuer/dir/').create(recursive: true);
+  file1 = Directory(directory1.path).listSync();
+  print(file1);
+  for (File parth in file1)
+  {
+    i=int.parse(ba.basename(parth.path).split(".").first);
+    if (parth.path.endsWith(".jpg")) {
+      singlepicfile[i]=parth;
+
+    }
+  }
+  setState(() {
+  });
+}
   permition()
   async {
     var status = await Permission.storage.status;
@@ -571,7 +585,13 @@ getinfo()
   }
   @override
   void initState() {
-    widget.file !=null?save():(){};
+    widget.file !=null? (){} :(){
+      setState(() {
+
+      });
+    };
+   // ch=="C"?getlist():(){};
+
     permition();
     getinfo();
     super.initState();
@@ -587,7 +607,6 @@ var selectedValue;
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -1033,9 +1052,6 @@ var selectedValue;
 
                 ),
               ):
-
-
-
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                 child: GridView.builder(

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'demo.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'main.dart';
@@ -10,7 +12,7 @@ class vehicalentry extends StatefulWidget {
   @override
   State<vehicalentry> createState() => _vehicalentryState();
 }
-Color colour=Color(0xffE31E24);
+Color colour=const Color(0xffE31E24);
 class _vehicalentryState extends State<vehicalentry> {
   @override
   Widget build(BuildContext context) {
@@ -26,16 +28,16 @@ class _vehicalentryState extends State<vehicalentry> {
         centerTitle: true,
         elevation: 0,
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (c)=>tab( ))); },child: Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(onPressed: () { ch="D"; Navigator.push(context, MaterialPageRoute(builder: (c)=>tab())); },child: Icon(Icons.add),),
       body: ListView.builder(
           itemCount: 3,
           itemBuilder: (context, position)
           {
             return GestureDetector(
               onTap: (){
-                singlepicfile=List.filled(20, "");
+                singlepicfile=List.filled(20,"");
                 desFile="";
-                Navigator.push(context, MaterialPageRoute(builder: (c)=>tab( )));
+                Get.to(()=>tab( ));
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,

@@ -46,7 +46,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   late Image camerraImage;
   late CameraController _controller;
   late List<CameraDescription> _availableCameras;
-  int len =2;
+  int len =5;
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -160,7 +160,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
     final directory = await getExternalStorageDirectory();
     var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/RYMSValuer/dir').create(recursive: true);
-    File file1 = await File('${directory1.path}/${i}.png').create();
+    File file1 = await File('${directory1.path}/$i.jpg').create(recursive: true);
     file1.writeAsBytesSync(watermarkedImg);
     file.add(file1);
     i++;
@@ -280,7 +280,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         print(e);
                       }
                     }
-                    , child:Container(width: w*0.8,child: Center(child: const Text("Take picture",style: TextStyle(fontSize: 20),)))),
+                    , child:Container(width: w*0.8,child: const Center(child: Text("Take picture",style: TextStyle(fontSize: 20),)))),
               ):
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -335,7 +335,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         color: FlutterFlowTheme.of(context).secondaryColor,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.check,
                         color: Colors.black,
                         size: 30,
@@ -357,7 +357,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                     ),
 
                     onPressed: () async {
-
                       i=0;
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder:

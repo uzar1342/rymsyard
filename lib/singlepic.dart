@@ -157,10 +157,9 @@ class SinglepicState extends State<Singlepic> {
         dstX: (originalImage!.width*0.3).round(),         // default : imageWidth/4
         dstY: (originalImage.height*0.9).round() ,
         imgBytes: imgBytes);        // default : imageWidth/2
-
     final directory = await getExternalStorageDirectory();
     var directory1 = await Directory('${directory!.parent.parent.parent.parent.path}/RYMSValuer/dir').create(recursive: true);
-    File file1 = await File('${directory1.path}/${widget.id}.png').create(recursive: true);
+    File file1 = File('${directory1.path}/${widget.id}.jpg');
     file1.writeAsBytesSync(watermarkedImg);
     singlepicfile[widget.id]=file1;
     print(singlepicfile[widget.id]);
@@ -245,8 +244,6 @@ class SinglepicState extends State<Singlepic> {
               ): Image.file(File(image!.path)):Image.file(File(image!.path)),
             ),
             SizedBox(height: 5),
-
-
             widget.len<len?
             loader?
             Padding(
@@ -336,7 +333,7 @@ class SinglepicState extends State<Singlepic> {
                       color: FlutterFlowTheme.of(context).secondaryColor,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.check,
                       color: Colors.black,
                       size: 30,
@@ -350,7 +347,7 @@ class SinglepicState extends State<Singlepic> {
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(w*0.8, h*0.1),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     primary: Colors.green,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
@@ -358,8 +355,8 @@ class SinglepicState extends State<Singlepic> {
                   ),
 
                   onPressed: () async {
-
                     i=0;
+                    ch="C";
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder:
                             (context) =>

@@ -11,6 +11,9 @@ import 'form1.dart';
 import 'main.dart';
 Map<String,dynamic> details={} ;
 class tab extends StatelessWidget {
+  tab();
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +21,7 @@ class tab extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: HomePage(),
+      home: HomePage(file: null,),
     );
   }
 }
@@ -28,7 +31,7 @@ String iAndv="",f1="",f2="";
 
 
 class HomePage extends StatefulWidget {
-   HomePage({Key? key, this.file}) : super(key: key);
+   HomePage( {Key? key, this.file}) : super(key: key);
 var file;
   @override
   State<HomePage> createState() => _HomePageState();
@@ -62,12 +65,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     checkinternet();
-    print("object");
     tabController =  TabController(vsync: this, length: 2);
   }
   @override
   void dispose() {
-    print("ob");
     subscription.cancel;
     tabController.dispose();
     super.dispose();
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         body: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
           children: [
-            ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()},),
+            ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()}),
             ChecboxWidget(fun: ()=>{refress()}),
 
           ],
