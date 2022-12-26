@@ -247,7 +247,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                           },
                           showSearchBox: true,
                         ),
-                        items: const ["Bank of Baroda","Bank of India","Bank of Maharashtra","Canara Bank","Central Bank of India","Indian Bank",],
+                        items: const ["Bank of Baroda","Bank of India","Bank of Maharashtra","Canara Bank","Central Bank of India","Indian Bank","Others"],
                         onChanged: (val) =>{setState(() => Financer_Name = val?.toString())},
                         dropdownDecoratorProps: DropDownDecoratorProps(
                           dropdownSearchDecoration: InputDecoration(
