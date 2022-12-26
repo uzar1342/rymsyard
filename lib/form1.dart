@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:rymsyard/firstpage.dart';
@@ -16,7 +17,8 @@ import 'flutter_flow/flutter_flow_radio_button.dart';
 import 'flutter_flow/flutter_flow_widgets.dart';
 
 class ChecboxWidget extends StatefulWidget {
-  const ChecboxWidget({Key? key, required Set<void> Function() fun}) : super(key: key);
+   ChecboxWidget({Key? key, required Set<void> Function() this.fun}) : super(key: key);
+var fun;
 
   @override
   _ChecboxWidgetState createState() => _ChecboxWidgetState();
@@ -35,16 +37,17 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
   TextEditingController? Fuel;
   TextEditingController? Registered_Date;
   String? Repo_Agency_Name;
-  String? STATUS;
+  String? Vehicle_Running_Condition;
   String? Make;
   String? Model;
-
   String? RC_Book_Availability;
   String? VEHICLE_INSURANCE;
   String? PUC_Certificate;
   String? Fitness_Certificate;
   String? TAX_Book;
   String? PERMIT;
+  String? RC_States;
+ String? Financer_Name;
 
 
   TextEditingController? Section_yard;
@@ -135,6 +138,23 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
     );
   }
 
+
+  Future<List<UserModel>> getData(filter) async {
+    var response = await Dio().get(
+      "https://5d85ccfb1e61af001471bf60.mockapi.io/user",
+      queryParameters: {"filter": filter},
+    );
+
+    final data = response.data;
+    if (data != null) {
+      return UserModel.fromJsonList(data);
+    }
+
+    return [];
+  }
+
+
+
   @override
   void dispose() {
     Registration_No?.dispose();
@@ -184,14 +204,13 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
-                          'RC Book Availability',
+                          'Financer Name',
                           style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
@@ -200,9 +219,62 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                     ],
                   ),
-
-
-
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    child: Container(
+                      width: double.infinity,
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                        ),
+                      ),
+                      child: DropdownSearch<String>(
+                        popupProps:  PopupPropsMultiSelection.modalBottomSheet(
+                          showSelectedItems: true,
+                          itemBuilder: (context, item, isSelected) {
+                            return Container(
+                              color: Colors.white,
+                              child: ListTile(
+                                selected: isSelected,
+                                title: Text(item ?? ''),
+                              ),
+                            );
+                          },
+                          showSearchBox: true,
+                        ),
+                        items: const ["Bank of Baroda","Bank of India","Bank of Maharashtra","Canara Bank","Central Bank of India","Indian Bank",],
+                        onChanged: (val) =>{setState(() => Financer_Name = val?.toString())},
+                        dropdownDecoratorProps: DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            label: const Text("Select Financer"),
+                            filled: true,
+                            fillColor:
+                            Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Text(
+                          'RC States',
+                          style: FlutterFlowTheme.of(context).title3.override(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
@@ -218,7 +290,55 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                     ),
                     child: FlutterFlowRadioButton(
-                      options: ['yes', 'no'].toList(),
+                      options: ['yes', 'no',"NDA"].toList(),
+                      onChanged: (val) => setState(() => RC_States = val),
+                      optionHeight: 50,
+                      textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.black,
+                      ),
+                      textPadding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      buttonPosition: RadioButtonPosition.left,
+                      direction: Axis.horizontal,
+                      radioButtonColor: Colors.blue,
+                      inactiveRadioButtonColor: const Color(0x8A000000),
+                      toggleable: false,
+                      horizontalAlignment: WrapAlignment.start,
+                      verticalAlignment: WrapCrossAlignment.start,
+                    ),
+                  ),
+                ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Text(
+                          'RC Book Availability',
+                          style: FlutterFlowTheme.of(context).title3.override(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  child: Container(
+                    width: double.infinity,
+                    constraints: const BoxConstraints(
+                      maxHeight: 500,
+                    ),
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        width: 1,
+                      ),
+                    ),
+                    child: FlutterFlowRadioButton(
+                      options: ['yes', 'no','NDA'].toList(),
                       onChanged: (val) => setState(() => RC_Book_Availability = val),
                       optionHeight: 50,
                       textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -266,7 +386,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                     ),
                     child: FlutterFlowRadioButton(
-                      options: ['yes', 'no'].toList(),
+                      options: ['yes', 'no','NDA'].toList(),
                       onChanged: (val) => setState(() => VEHICLE_INSURANCE = val),
                       optionHeight: 50,
                       textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -319,7 +439,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                       child: TextFormField(
                         controller: INSURANCE_VALIDITY,
-enabled: false,
+                        enabled: false,
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter date',
@@ -400,7 +520,7 @@ enabled: false,
                       ),
                     ),
                     child: FlutterFlowRadioButton(
-                      options: ['yes', 'no'].toList(),
+                      options: ['yes', 'no','NDA'].toList(),
                       onChanged: (val) => setState(() => PUC_Certificate = val),
                       optionHeight: 50,
                       textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -448,7 +568,7 @@ enabled: false,
                       ),
                     ),
                     child: FlutterFlowRadioButton(
-                      options: ['yes', 'no'].toList(),
+                      options: ['yes', 'no','NDA'].toList(),
                       onChanged: (val) => setState(() => Fitness_Certificate = val),
                       optionHeight: 50,
                       textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -496,7 +616,7 @@ enabled: false,
                       ),
                     ),
                     child: FlutterFlowRadioButton(
-                      options: ['yes', 'no'].toList(),
+                      options: ['yes', 'no','NDA'].toList(),
                       onChanged: (val) => setState(() => TAX_Book = val),
                       optionHeight: 50,
                       textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -544,7 +664,7 @@ enabled: false,
                       ),
                     ),
                     child: FlutterFlowRadioButton(
-                      options: ['yes', 'no'].toList(),
+                      options: ['yes', 'no','NDA'].toList(),
                       onChanged: (val) => setState(() => PERMIT = val),
                       optionHeight: 50,
                       textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -568,7 +688,7 @@ enabled: false,
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                       child: Text(
-                        'Registered Date',
+                        RC_States!="no"?'Registered Date':"Invoice Date",
                         style: FlutterFlowTheme.of(context).title3.override(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
@@ -597,7 +717,7 @@ enabled: false,
                       ),
                       child: TextFormField(
                         controller: Registered_Date,
-enabled: false,
+                        enabled: false,
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter date',
@@ -660,7 +780,7 @@ enabled: false,
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
-                          'Registration No',
+                          RC_States!="no"?'Registration No':"Invoice No",
                           style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
@@ -689,7 +809,7 @@ enabled: false,
                         obscureText: false,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          hintText: 'Enter Registration No',
+                          hintText:  RC_States!="no"?'Enter Registration No':"Enter Invoice No",
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
                           enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -847,24 +967,45 @@ enabled: false,
                           width: 1,
                         ),
                       ),
-                      child: FlutterFlowDropDown(
-                        options: ['Option 1', '2', '3'],
-                        onChanged: (val) => setState(() => Make = val),
-                        width: 180,
-                        height: 50,
-                        textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
+                      child:
+                      DropdownSearch<UserModel>(
+                        asyncItems: (String? filter) => getData(filter),
+                        popupProps: const PopupPropsMultiSelection.modalBottomSheet(
+                          showSelectedItems: true,
+                          itemBuilder: _customPopupItemBuilderExample2,
+                          showSearchBox: true,
                         ),
-                        hintText: 'Please select...',
-                        fillColor: Colors.white,
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0,
-                        borderRadius: 0,
-                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
+                        onChanged: (val) => setState(() => Make = val?.name.toString()),
+                        compareFn: (item, sItem) => item.id == sItem.id,
+                        dropdownDecoratorProps: DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            label: Text("Select make"),
+                            filled: true,
+                            fillColor:
+                            Colors.white,
+                          ),
+                        ),
                       ),
+
+
+                      // FlutterFlowDropDown(
+                      //   options: ['Option 1', '2', '3'],
+                      //   onChanged: (val) => setState(() => Make = val),
+                      //   width: 180,
+                      //   height: 50,
+                      //   textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                      //     fontFamily: 'Poppins',
+                      //     color: Colors.black,
+                      //   ),
+                      //   hintText: 'Please select...',
+                      //   fillColor: Colors.white,
+                      //   elevation: 2,
+                      //   borderColor: Colors.transparent,
+                      //   borderWidth: 0,
+                      //   borderRadius: 0,
+                      //   margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                      //   hidesUnderline: true,
+                      // ),
                     ),
                   ),
                  Make!=null? Row(
@@ -896,23 +1037,23 @@ enabled: false,
                           width: 1,
                         ),
                       ),
-                      child: FlutterFlowDropDown(
-                        options: ['Option 1', '2', '3'],
-                        onChanged: (val) => setState(() => Model = val),
-                        width: 180,
-                        height: 50,
-                        textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
+                      child:  DropdownSearch<UserModel>(
+                        asyncItems: (String? filter) => getData(filter),
+                        popupProps: const PopupPropsMultiSelection.modalBottomSheet(
+                          showSelectedItems: true,
+                          itemBuilder: _customPopupItemBuilderExample2,
+                          showSearchBox: true,
                         ),
-                        hintText: 'Please select...',
-                        fillColor: Colors.white,
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0,
-                        borderRadius: 0,
-                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
+                        onChanged: (val) => setState(() => Model = val?.name.toString()),
+                        compareFn: (item, sItem) => item.id == sItem.id,
+                        dropdownDecoratorProps: DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            label: Text("Select Model"),
+                            filled: true,
+                            fillColor:
+                            Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ):Container(),
@@ -1191,23 +1332,23 @@ enabled: false,
                           width: 1,
                         ),
                       ),
-                      child: FlutterFlowDropDown(
-                        options: ['Option 1', '2', '3'],
-                        onChanged: (val) => setState(() => Repo_Agency_Name = val),
-                        width: 180,
-                        height: 50,
-                        textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
+                      child: DropdownSearch<UserModel>(
+                        asyncItems: (String? filter) => getData(filter),
+                        popupProps: const PopupPropsMultiSelection.modalBottomSheet(
+                          showSelectedItems: true,
+                          itemBuilder: _customPopupItemBuilderExample2,
+                          showSearchBox: true,
                         ),
-                        hintText: 'Please select...',
-                        fillColor: Colors.white,
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0,
-                        borderRadius: 0,
-                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
+                        onChanged: (val) => setState(() => Repo_Agency_Name = val?.name.toString()),
+                        compareFn: (item, sItem) => item.id == sItem.id,
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            label: Text("Select Repo Agency Name"),
+                            filled: true,
+                            fillColor:
+                            Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -1463,7 +1604,7 @@ enabled: false,
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
-                          'STATUS',
+                          'Vehicle Running Condition',
                           style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
@@ -1486,23 +1627,23 @@ enabled: false,
                           width: 1,
                         ),
                       ),
-                      child: FlutterFlowDropDown(
-                        options: ['Towed', 'running'],
-                        onChanged: (val) => setState(() => STATUS = val),
-                        width: 180,
-                        height: 50,
-                        textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
+                      child: DropdownSearch<UserModel>(
+                        asyncItems: (String? filter) => getData(filter),
+                        popupProps: const PopupPropsMultiSelection.modalBottomSheet(
+                          showSelectedItems: true,
+                          itemBuilder: _customPopupItemBuilderExample2,
+                          showSearchBox: true,
                         ),
-                        hintText: 'Please select...',
-                        fillColor: Colors.white,
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0,
-                        borderRadius: 0,
-                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
+                        onChanged: (val) => setState(() => Vehicle_Running_Condition = val?.name.toString()),
+                        compareFn: (item, sItem) => item.id == sItem.id,
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            label: Text("Select Vehicle Running Condition"),
+                            filled: true,
+                            fillColor:
+                            Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -1535,23 +1676,26 @@ enabled: false,
                           width: 1,
                         ),
                       ),
-                      child: FlutterFlowDropDown(
-                        options: ['Repo', 'Surrenderd'],
-                        onChanged: (val) => setState(() => Source = val),
-                        width: 180,
-                        height: 50,
-                        textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
+                      child: DropdownSearch<String>(
+                        // popupProps:  PopupPropsMultiSelection.modalBottomSheet(
+                        //   showSelectedItems: true,
+                        //   itemBuilder: (context, item, isSelected) {
+                        //     return Text(item);
+                        //   },
+                        //   showSearchBox: true,
+                        // ),
+                        items: const ["1","2"],
+                        onChanged: (val) =>
+                        {
+                           setState(() => Source = val?.toString())},
+                        dropdownDecoratorProps: DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            label: const Text("Select Source"),
+                            filled: true,
+                            fillColor:
+                            Colors.white,
+                          ),
                         ),
-                        hintText: 'Please select...',
-                        fillColor: Colors.white,
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0,
-                        borderRadius: 0,
-                        margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
                       ),
                     ),
                   ),
@@ -1569,8 +1713,7 @@ enabled: false,
                         ),
                       ),
                     ],
-                  )
-,
+                  ),
                 GestureDetector(
                   onTap: (){
                     Section_yard?.clear();
@@ -1662,11 +1805,14 @@ enabled: false,
                           ),
                           child: FFButtonWidget(
                             onPressed: () {
-                              submit();
+                              print(VEHICLE_INSURANCE);
+                            //  submit();
                               try
                               {
+                                details['Financer_Name'] = Financer_Name!;
+                                details['RC_States'] = RC_States!;
                                 details['Repo_Agency_Name'] = Repo_Agency_Name!;
-                                details['STATUS'] = STATUS!;
+                                details['Vehicle_Running_Condition'] = Vehicle_Running_Condition!;
                                 details['Make_and_Model'] = Make!;
                                 details['RC_Book_Availability'] = RC_Book_Availability!;
                                 details['VEHICLE_INSURANCE'] = VEHICLE_INSURANCE!;
@@ -1674,13 +1820,8 @@ enabled: false,
                                 details['Fitness_Certificate'] = Fitness_Certificate!;
                                 details['TAX_Book'] = TAX_Book!;
                                 details['PERMIT'] = PERMIT!;
-
-
                                 details['Section_yard'] = Section_yard!;
                                 details['Source'] = Source!;
-
-
-
                                 if( Registration_No!.text!=""&&
                                 Contract_No!.text!=""&&
                                 Chasis_Number!.text!=""&&
@@ -1705,6 +1846,9 @@ enabled: false,
                                       details['Registered_Date'] =   Registered_Date!.text;
 
                                   // print(vehicle!+transmission!);
+                                  f1="kdf";
+                                  widget.fun();
+                                  DefaultTabController.of(context)?.animateTo(1);
                                   submit();
                                  // Get.offAll(()=>const dasbod());
 
@@ -1716,7 +1860,7 @@ enabled: false,
                               }
                               catch(e)
                               {
-                                Fluttertoast.showToast(msg: "Fill Form");
+                                Fluttertoast.showToast(msg: e.toString());
                               }
                             },
                             text: 'Submit',
@@ -1749,4 +1893,71 @@ enabled: false,
       ),
     );
   }
+}
+
+class UserModel {
+  final String id;
+  final DateTime? createdAt;
+  final String name;
+  final String? avatar;
+
+  UserModel(
+      {required this.id, this.createdAt, required this.name, this.avatar});
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json["id"],
+      createdAt:
+      json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      name: json["name"],
+      avatar: json["avatar"],
+    );
+  }
+
+  static List<UserModel> fromJsonList(List list) {
+    return list.map((item) => UserModel.fromJson(item)).toList();
+  }
+
+  ///this method will prevent the override of toString
+  String userAsString() {
+    return '#${this.id} ${this.name}';
+  }
+
+  ///this method will prevent the override of toString
+  bool userFilterByCreationDate(String filter) {
+    return this.createdAt?.toString().contains(filter) ?? false;
+  }
+
+  ///custom comparing function to check if two users are equal
+  bool isEqual(UserModel model) {
+    return this.id == model.id;
+  }
+
+  @override
+  String toString() => name;
+}
+Widget _customPopupItemBuilderExample2(
+    BuildContext context,
+    UserModel? item,
+    bool isSelected,
+    ) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 8),
+    decoration: !isSelected
+        ? null
+        : BoxDecoration(
+      border: Border.all(color: Theme.of(context).primaryColor),
+      borderRadius: BorderRadius.circular(5),
+      color: Colors.white,
+    ),
+    child: ListTile(
+      selected: isSelected,
+      title: Text(item?.name ?? ''),
+      subtitle: Text(item?.createdAt?.toString() ?? ''),
+      leading: const CircleAvatar(
+        // this does not work - throws 404 error
+        // backgroundImage: NetworkImage(item.avatar ?? ''),
+      ),
+    ),
+  );
 }

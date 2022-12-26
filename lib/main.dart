@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -15,24 +14,18 @@ import 'package:rymsyard/search%20vehical.dart';
 import 'package:rymsyard/singlepic.dart';
 import 'package:rymsyard/splacescreen.dart';
 import 'package:rymsyard/vehicalexit.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import 'package:device_info/device_info.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as ui;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:light_compressor/light_compressor.dart';
 import 'camera.dart';
 import 'dashbord.dart';
 import 'demo.dart';
-import 'firstpage.dart';
-import 'flutter_flow/flutter_flow_icon_button.dart';
-import 'flutter_flow/flutter_flow_widgets.dart';
 import 'flutter_flow_theme.dart';
 import 'menus.dart';
 
@@ -82,10 +75,10 @@ class _dasbodState extends State<dasbod> {
     f1="";
     f2="";
     _widgetOptions = <Widget>[
-      vehicalentry(),
-      vehicalexit(),
-      searchvehicle(),
-      ProfWidget()
+      const vehicalentry(),
+      const vehicalexit(),
+      const searchvehicle(),
+      const ProfWidget()
     ];
     super.initState();
   }
@@ -184,9 +177,6 @@ class _dasbodState extends State<dasbod> {
 
   }
 }
-
-
-
 class vidioupload extends StatelessWidget {
   const vidioupload({super.key});
 
@@ -484,7 +474,7 @@ getinfo()
     final Duration duration =
     Duration(milliseconds: stopwatch.elapsedMilliseconds);
     _duration = duration.inSeconds;
-    print("upload time"+duration.toString());
+    print("upload time$duration");
   }
   final ImagePicker _picker = ImagePicker();
   picimg(int index, String s)
@@ -1182,7 +1172,8 @@ var selectedValue;
               details["vidio"]=desFile;
               iAndv="kdf";
               widget.fun();
-              DefaultTabController.of(context)?.animateTo(1);
+              Get.offAll(()=>const dasbod());
+              //  DefaultTabController.of(context)?.animateTo(1);
             }
             else
               {
