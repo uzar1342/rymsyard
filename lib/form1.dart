@@ -36,6 +36,8 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
   TextEditingController? Mileage_at_yard;
   TextEditingController? Fuel;
   TextEditingController? Registered_Date;
+  TextEditingController? Repo_Executive_Name;
+  TextEditingController? Repo_Executive_Number;
   String? Repo_Agency_Name;
   String? Vehicle_Running_Condition;
   String? Make;
@@ -47,7 +49,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
   String? TAX_Book;
   String? PERMIT;
   String? RC_States;
- String? Financer_Name;
+  String? Financer_Name;
 
 
   TextEditingController? Section_yard;
@@ -68,6 +70,8 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
     INSURANCE_VALIDITY = TextEditingController();
     Registered_Date = TextEditingController();
     Section_yard = TextEditingController();
+    Repo_Executive_Name = TextEditingController();
+    Repo_Executive_Number = TextEditingController();
   }
 
   submit() async {
@@ -83,7 +87,6 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
        formData.files.add(MapEntry("images[]", await di.MultipartFile.fromFile(details["file"][1].path, filename:"b.jpg")));
        var response =
        await dio.post(addvehicledata, data: formData);
-
       // if (response.statusCode == 200) {
       //   var jason=jsonDecode(response.data);
       //   print(jason["success"]);
@@ -168,6 +171,8 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
     INSURANCE_VALIDITY?.dispose();
     Registered_Date?.dispose();
     Section_yard?.dispose();
+    Repo_Executive_Name?.dispose();
+    Repo_Executive_Number?.dispose();
     super.dispose();
   }
   Future<void> date(TextEditingController incalander1)
@@ -249,9 +254,9 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                         ),
                         items: const ["Bank of Baroda","Bank of India","Bank of Maharashtra","Canara Bank","Central Bank of India","Indian Bank","Others"],
                         onChanged: (val) =>{setState(() => Financer_Name = val?.toString())},
-                        dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
                           dropdownSearchDecoration: InputDecoration(
-                            label: const Text("Select Financer"),
+                            label: Text("Select Financer"),
                             filled: true,
                             fillColor:
                             Colors.white,
@@ -805,7 +810,6 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                       child: TextFormField(
                         controller: Registration_No,
-
                         obscureText: false,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -977,7 +981,7 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                         ),
                         onChanged: (val) => setState(() => Make = val?.name.toString()),
                         compareFn: (item, sItem) => item.id == sItem.id,
-                        dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
                           dropdownSearchDecoration: InputDecoration(
                             label: Text("Select make"),
                             filled: true,
@@ -1088,7 +1092,6 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                       child: TextFormField(
                         controller: Chasis_Number,
-
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Chasis Number',
@@ -1358,6 +1361,170 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                         child: Text(
+                          'Repo Executive Name',
+                          style: FlutterFlowTheme.of(context).title3.override(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    child: Container(
+                      width: double.infinity,
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: Repo_Executive_Name,
+
+                        obscureText: false,
+                        decoration: InputDecoration(
+                            hintText: 'Enter Repo Executive Name',
+                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            errorBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedErrorBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Text(
+                          'Repo Executive Number',
+                          style: FlutterFlowTheme.of(context).title3.override(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    child: Container(
+                      width: double.infinity,
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: Repo_Executive_Number,
+
+                        obscureText: false,
+                        decoration: InputDecoration(
+                            hintText: 'Enter Repo Executive Number',
+                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            errorBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedErrorBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0)
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Text(
                           'Mileage at  repo',
                           style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Poppins',
@@ -1546,7 +1713,6 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                       ),
                       child: TextFormField(
                         controller: Fuel,
-
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter Fuel (inches)',
@@ -1688,9 +1854,9 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                         onChanged: (val) =>
                         {
                            setState(() => Source = val?.toString())},
-                        dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
                           dropdownSearchDecoration: InputDecoration(
-                            label: const Text("Select Source"),
+                            label: Text("Select Source"),
                             filled: true,
                             fillColor:
                             Colors.white,
@@ -1831,9 +1997,9 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                                 Mileageatrepo!.text!=""&&
                                 Mileage_at_yard!.text!=""&&
                                 Fuel!.text!=""&&Section_yard!.text!=""&&
-                                Registered_Date!.text!="") {
-
-                                  details['Registration_No'] =   Registration_No!.text;
+                                Registered_Date!.text!=""&& Repo_Executive_Name!.text!=""&&
+                                    Repo_Executive_Number!.text!="") {
+                                      details['Registration_No'] =   Registration_No!.text;
                                       details['Contract_No'] =      Contract_No!.text;
                                       details['Chasis_Number'] =     Chasis_Number!.text;
                                       details['Engine_No'] =     Engine_No!.text;
@@ -1844,6 +2010,8 @@ class _ChecboxWidgetState extends State<ChecboxWidget> {
                                       details['Fuel'] =    Fuel!.text;
                                       details['Section_yard'] =   Section_yard!.text;
                                       details['Registered_Date'] =   Registered_Date!.text;
+                                      details['Repo_Executive_Number'] =   Repo_Executive_Number!.text;
+                                      details['Repo_Executive_Name'] =   Repo_Executive_Name!.text;
 
                                   // print(vehicle!+transmission!);
                                   f1="kdf";

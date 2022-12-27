@@ -12,24 +12,13 @@ import 'main.dart';
 Map<String,dynamic> details={} ;
 class tab extends StatelessWidget {
   tab();
-
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "RYMSYard",
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: HomePage(file: null,),
-    );
+    return  HomePage(file: null,);
   }
 }
 
 String iAndv="",f1="",f2="";
-
-
-
 class HomePage extends StatefulWidget {
    HomePage( {Key? key, this.file}) : super(key: key);
 var file;
@@ -116,15 +105,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             indicatorColor: Colors.transparent,
             tabs: [
               Tab(
-                  child:  Container(child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       const Text("Inventry",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
-                      f1!=""? const Icon(Icons.check,color: Colors.blue,):Container()
-                    ],
-                  ),)
-              ),
-              Tab(
                 child: Container(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -133,15 +113,25 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ],
                 ),),
               ),
+              Tab(
+                  child:  Container(child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                       const Text("Inventry",textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent,fontSize: 10),),
+                      f1!=""? const Icon(Icons.check,color: Colors.blue,):Container()
+                    ],
+                  ),)
+              ),
+
             ],
           ),
         ),
         body: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
           children: [
-            ChecboxWidget(fun: ()=>{refress()}),
-            ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()}),
 
+            ImageAndVidio(title: 'asd', file: widget.file, fun: ()=>{refress()}),
+            ChecboxWidget(fun: ()=>{refress()}),
           ],
         ),
       ):Scaffold(

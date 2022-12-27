@@ -56,11 +56,15 @@ class SinglepicState extends State<Singlepic> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('No'),
+            child: const Text('No'),
           ),
           TextButton(
-            onPressed: () =>{Navigator.pop(context)},
-            child: Text('Yes'),
+            onPressed: () =>{
+              Navigator.pop(context),
+            Navigator.pop(context)
+
+            },
+            child: const Text('Yes'),
           ),
         ],
       ),
@@ -171,203 +175,207 @@ class SinglepicState extends State<Singlepic> {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  height: h * 0.09,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.off(()=>tab());
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(
-                            // top: 10.0,
-                            left: 15.0,
-                          ),
-                          //padding: const EdgeInsets.only(left: 5.0),
-                          height: h * 0.05,
-                          width: h * 0.05,
-                          decoration: BoxDecoration(
-                            // color: primaryColor,
-                              border: Border.all(color: Colors.black26, width: 1.0),
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(12.0))),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            color: Colors.black87,
-                            size: 18.0,
+        child: WillPopScope(
+          onWillPop: _onWillPop,
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                    padding: const EdgeInsets.only(top: 0.0),
+                    height: h * 0.09,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () =>{
+                            Navigator.pop(context)
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                              // top: 10.0,
+                              left: 15.0,
+                            ),
+                            //padding: const EdgeInsets.only(left: 5.0),
+                            height: h * 0.05,
+                            width: h * 0.05,
+                            decoration: BoxDecoration(
+                              // color: primaryColor,
+                                border: Border.all(color: Colors.black26, width: 1.0),
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(12.0))),
+                            child: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.black87,
+                              size: 18.0,
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        widget.len<len?widget.title[widget.len]:"Send",
-                        style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const AttendancePage()));
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.chartArea,
-                          color: Colors.white,
-                          size: 25,
+                        Text(
+                          widget.len<len?widget.title[widget.id]:"Send",
+                          style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
-                      ),
-                    ],
-                  )),
-            ),
-            Expanded(
-              flex: 6,
-              child:widget.len<len? widget.camraloader?
-              FutureBuilder<void>(
-                future: _initializeControllerFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    // If the Future is complete, display the preview.
-                    return  CameraPreview(_controller);
-                  } else {
-                    // Otherwise, display a loading indicator.
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ): Image.file(File(image!.path)):Image.file(File(image!.path)),
-            ),
-            SizedBox(height: 5),
-            widget.len<len?
-            loader?
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(20.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                  ),
-
-                  onPressed: () async {
-                    try {
-                      await _initializeControllerFuture;
-                      image  = await _controller!.takePicture();
-                      if (!mounted) return;
-                      // If the picture was taken, display it on a new screen.
-                      setState(() {
-                        loader=false;
-                        widget.camraloader=false;
-                      });
-                      // Navigator.pushReplacement(context,
-                      //     MaterialPageRoute(builder:
-                      //         (context) =>
-                      //             picview( file: image!)
-                      //     ));
-
-
-                    } catch (e) {
-                      // If an error occurs, log the error to the console.
-                      print(e);
+                        IconButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const AttendancePage()));
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.chartArea,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+              Expanded(
+                flex: 6,
+                child:widget.len<len? widget.camraloader?
+                FutureBuilder<void>(
+                  future: _initializeControllerFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // If the Future is complete, display the preview.
+                      return  CameraPreview(_controller);
+                    } else {
+                      // Otherwise, display a loading indicator.
+                      return const Center(child: CircularProgressIndicator());
                     }
-                  }
-                  , child:Container(width: w*0.8,child: Center(child: const Text("Take picture",style: TextStyle(fontSize: 20),)))),
-            ):
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      widget.camraloader=true;
-                      loader=true;
-                    });
                   },
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryColor,
-                      shape: BoxShape.circle,
+                ): Image.file(File(image!.path)):Image.file(File(image!.path)),
+              ),
+              SizedBox(height: 5),
+              widget.len<len?
+              loader?
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                      padding: const EdgeInsets.all(20.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.replay_sharp,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: (){
-                    if(widget.len<len) {
 
+                    onPressed: () async {
+                      try {
+                        await _initializeControllerFuture;
+                        image  = await _controller!.takePicture();
+                        if (!mounted) return;
+                        // If the picture was taken, display it on a new screen.
+                        setState(() {
+                          loader=false;
+                          widget.camraloader=false;
+                        });
+                        // Navigator.pushReplacement(context,
+                        //     MaterialPageRoute(builder:
+                        //         (context) =>
+                        //             picview( file: image!)
+                        //     ));
+
+
+                      } catch (e) {
+                        // If an error occurs, log the error to the console.
+                        print(e);
+                      }
+                    }
+                    , child:Container(width: w*0.8,child: Center(child: const Text("Take picture",style: TextStyle(fontSize: 20),)))),
+              ):
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: (){
                       setState(() {
                         widget.camraloader=true;
-                        widget.len=widget.len+1;
                         loader=true;
                       });
-                      if(widget.len==2||widget.len==3||widget.len==5||widget.len==6)
-                      {
-                        _toggleCameraLens();
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.replay_sharp,
+                        color: Colors.black,
+                        size: 35,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      if(widget.len<len) {
+
+                        setState(() {
+                          widget.camraloader=true;
+                          widget.len=widget.len+1;
+                          loader=true;
+                        });
+                        if(widget.len==2||widget.len==3||widget.len==5||widget.len==6)
+                        {
+                          _toggleCameraLens();
+                        }
+                        // file.add(image);
+                        addimg(image);
                       }
-                      // file.add(image);
-                      addimg(image);
-                    }
-                    else
-                    {
+                      else
+                      {
 
-                    }
-                  },
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.black,
-                      size: 30,
+                      }
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.check,
+                        color: Colors.black,
+                        size: 30,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ):
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(w*0.8, h*0.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    primary: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
+                ],
+              ):
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(w*0.8, h*0.1),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      primary: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                     ),
-                  ),
 
-                  onPressed: () async {
-                    i=0;
-                    ch="C";
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder:
-                            (context) =>
-                            HomePage(file: null)
-                        ));
-                  }
-                  , child: const Text("Send",style: TextStyle(fontSize: 25),)),
-            )
+                    onPressed: () async {
+                      i=0;
+                      ch="C";
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder:
+                              (context) =>
+                              HomePage(file: null)
+                          ));
+                    }
+                    , child: const Text("Send",style: TextStyle(fontSize: 25),)),
+              )
 
 
-          ],
+            ],
+          ),
         ),
       ),
 

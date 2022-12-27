@@ -531,7 +531,7 @@ getinfo()
     //
     //   });
     // }
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
@@ -981,7 +981,6 @@ var selectedValue;
                                       Row(
                                         children: [
                                           ElevatedButton(onPressed: (){
-
                                             setState(() {
                                               Navigator.pop(context);
                                               widget.file.removeAt(index);
@@ -1008,7 +1007,6 @@ var selectedValue;
                           child: Stack(
                             children: [
                               Container(
-
                                 child: Image.file(
                                   File(widget.file[index]!.path),
                                   width: 200,
@@ -1102,7 +1100,6 @@ var selectedValue;
                           child: Stack(
                             children: [
                           singlepicfile[index]!=""?Container(
-
                             child: Image.file(
                             File(singlepicfile[index]!.path),
                               width: 200,
@@ -1172,8 +1169,8 @@ var selectedValue;
               details["vidio"]=desFile;
               iAndv="kdf";
               widget.fun();
-              Get.offAll(()=>const dasbod());
-              //  DefaultTabController.of(context)?.animateTo(1);
+             // Get.offAll(()=>const dasbod());
+                DefaultTabController.of(context)?.animateTo(1);
             }
             else
               {
